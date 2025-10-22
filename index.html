@@ -43,5 +43,36 @@
         <p>&copy; 2025 Young Leaders Summit. All rights reserved.</p>
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
+    <script>
+        // 3D Parallax Scroll Effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.querySelector('.parallax-bg');
+            const parallaxContent = document.querySelector('.parallax-content');
+            
+            if (parallaxBg && parallaxContent) {
+                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+                parallaxContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) translateZ(0)';
+            }
+        });
+
+        // Smooth fade-in animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
 </body>
 </html>
