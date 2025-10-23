@@ -139,18 +139,20 @@
                 return;
             }
 
-            // Calculate the total scrollable distance needed (3x viewport height)
-            const scrollThreshold = window.innerHeight * 3;
+            // Calculate max scroll distance (document height - viewport height)
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             
-            // Calculate scroll progress based on distance scrolled
-            const scrollProgress = window.pageYOffset / scrollThreshold;
+            // Calculate scroll progress based on current scroll position
+            const scrollProgress = window.pageYOffset / maxScroll;
 
-            // Map scroll progress to loading progress (0 to 100%)
-            targetProgress = Math.min(scrollProgress * 100, 100);
+            // Map scroll progress to loading progress, but make it need 70% of page scroll to reach 100%
+            targetProgress = Math.min((scrollProgress / 0.7) * 100, 100);
 
             // Update loading bar
             loadingBar.style.width = targetProgress + '%';
             loadingPercentage.textContent = Math.round(targetProgress) + '%';
+
+            console.log('Scroll:', window.pageYOffset, 'Max:', maxScroll, 'Progress:', targetProgress);
 
             // Hide overlay when fully loaded
             if (targetProgress >= 100) {
