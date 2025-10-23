@@ -6,8 +6,117 @@
     <title>Young Leaders Summit - Home</title>
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #3b2114 0%, #2a1a0f 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: #f5e6d3;
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+        }
+
+        .loading-title {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .loading-subtitle {
+            font-size: 1rem;
+            color: #c9a961;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .progress-container {
+            width: 400px;
+            max-width: 80vw;
+            height: 4px;
+            background-color: rgba(245, 230, 211, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #c9a961 0%, #f5e6d3 100%);
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 20px rgba(201, 169, 97, 0.6);
+        }
+
+        .progress-percentage {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #c9a961;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            font-size: 0.9rem;
+            color: #f5e6d3;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Prevent body scroll when loading */
+        body.loading {
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <img src="logo1.png" alt="Young Leaders Summit Logo" class="loading-logo">
+            <h1 class="loading-title">Young Leaders Summit</h1>
+            <p class="loading-subtitle">Preparing your experience...</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="progress-percentage" id="progress-percentage">0%</div>
+        </div>
+        <div class="scroll-hint">Scroll to continue</div>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -43,8 +152,90 @@
         <p>&copy; 2025 Young Leaders Summit. All rights reserved.</p>
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
+
     <script>
-        // 3D Parallax Scroll Effect
+        // Loading Screen Logic
+        (function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+            let loadingComplete = false;
+            let scrollAmount = 0;
+            const maxScroll = 800; // Pixels needed to scroll to complete loading
+
+            function updateProgress(scrollDelta) {
+                if (loadingComplete) return;
+
+                scrollAmount += scrollDelta;
+                scrollAmount = Math.max(0, Math.min(maxScroll, scrollAmount));
+                
+                const progress = (scrollAmount / maxScroll) * 100;
+                progressBar.style.width = progress + '%';
+                progressPercentage.textContent = Math.round(progress) + '%';
+
+                if (progress >= 100 && !loadingComplete) {
+                    loadingComplete = true;
+                    setTimeout(() => {
+                        loadingScreen.classList.add('fade-out');
+                        document.body.classList.remove('loading');
+                        
+                        // Remove loading screen from DOM after fade
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                            // Scroll to top to ensure clean start
+                            window.scrollTo(0, 0);
+                        }, 800);
+                    }, 300);
+                }
+            }
+
+            // Handle wheel events
+            function handleWheel(e) {
+                if (!loadingComplete) {
+                    e.preventDefault();
+                    updateProgress(Math.abs(e.deltaY));
+                }
+            }
+
+            // Handle touch events for mobile
+            let touchStartY = 0;
+            function handleTouchStart(e) {
+                if (!loadingComplete) {
+                    touchStartY = e.touches[0].clientY;
+                }
+            }
+
+            function handleTouchMove(e) {
+                if (!loadingComplete) {
+                    e.preventDefault();
+                    const touchDelta = Math.abs(touchStartY - e.touches[0].clientY);
+                    updateProgress(touchDelta);
+                    touchStartY = e.touches[0].clientY;
+                }
+            }
+
+            // Add event listeners
+            window.addEventListener('wheel', handleWheel, { passive: false });
+            window.addEventListener('touchstart', handleTouchStart, { passive: false });
+            window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+            // Clean up event listeners after loading completes
+            function cleanup() {
+                window.removeEventListener('wheel', handleWheel);
+                window.removeEventListener('touchstart', handleTouchStart);
+                window.removeEventListener('touchmove', handleTouchMove);
+            }
+
+            // Monitor for loading completion
+            const checkComplete = setInterval(() => {
+                if (loadingComplete) {
+                    cleanup();
+                    clearInterval(checkComplete);
+                }
+            }, 100);
+        })();
+
+        // 3D Parallax Scroll Effect (for main content)
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.querySelector('.parallax-bg');
