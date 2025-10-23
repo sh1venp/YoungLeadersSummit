@@ -6,6 +6,69 @@
     <title>Contact - Young Leaders Summit</title>
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .founders-section {
+            max-width: 900px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .founder-card {
+            background: rgba(245, 230, 211, 0.1);
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+            background: rgba(245, 230, 211, 0.15);
+        }
+
+        .founder-title {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .founder-name {
+            font-size: 1.5rem;
+            color: var(--light-beige);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .founder-contact {
+            font-size: 1.1rem;
+            color: var(--light-beige);
+            margin: 0.5rem 0;
+        }
+
+        .founder-contact a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .founder-contact a:hover {
+            color: var(--light-beige);
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--accent-gold);
+            margin: 1rem auto;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,7 +88,7 @@
     </nav>
 
     <!-- Contact Section -->
-    <section class="contact" style="min-height: 70vh;">
+    <section class="contact" style="min-height: 80vh;">
         <h2 class="fade-in-up">Get In Touch</h2>
         <div class="contact-info fade-in-up delay-1">
             <p>Have any query or interested in partnering with us?</p>
@@ -33,7 +96,28 @@
             <p><strong>Location:</strong> Delhi-NCR</p>
             <p><strong>Conference Dates:</strong> July - August 2026</p>
         </div>
-        <div class="social-links fade-in-up delay-2">
+
+        <!-- Co-Founders Section -->
+        <div class="founders-section fade-in-up delay-2">
+            <div class="founder-card">
+                <div class="founder-title">Co-Founder</div>
+                <div class="founder-name">Shiv Pasupuleti</div>
+                <div class="divider"></div>
+                <div class="founder-contact">
+                    <a href="tel:+919811903608">+91 98119 03608</a>
+                </div>
+            </div>
+            <div class="founder-card">
+                <div class="founder-title">Co-Founder</div>
+                <div class="founder-name">Atharv Shakya</div>
+                <div class="divider"></div>
+                <div class="founder-contact">
+                    <a href="tel:+919717766489">+91 97177 66489</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-links fade-in-up delay-3">
             <a href="https://www.instagram.com/young.leaders.summit.india/" target="_blank">Instagram</a>
             <a href="mailto:youngleaderssummitinfo@gmail.com">Email</a>
         </div>
