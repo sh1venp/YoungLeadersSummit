@@ -7,52 +7,46 @@
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .spline-container {
+        /* Spline Animation Overlay */
+        #spline-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            background-color: #faf7f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
-            overflow: hidden;
+            opacity: 1;
+            transition: opacity 1.2s ease-out;
+        }
+
+        #spline-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
 
         spline-viewer {
             width: 100%;
             height: 100%;
-            display: block;
         }
 
-        .spline-container.fade-out {
-            animation: fadeOutSpline 1s ease-out forwards;
-            pointer-events: none;
-        }
-
-        @keyframes fadeOutSpline {
-            from {
-                opacity: 1;
-                visibility: visible;
-            }
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        body.spline-active {
+        body.loading {
             overflow: hidden;
         }
 
-        body.spline-complete {
+        body.loaded {
             overflow: auto;
         }
     </style>
 </head>
-<body>
-    <!-- Spline Animation Container -->
-    <div class="spline-container" id="splineContainer">
+<body class="loading">
+    <!-- Spline 3D Animation Overlay -->
+    <div id="spline-overlay">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.85/build/spline-viewer.js"></script>
-        <spline-viewer id="splineViewer" url="https://prod.spline.design/90rpkLoVyiwBGjKR/scene.splinecode"></spline-viewer>
+        <spline-viewer url="https://prod.spline.design/90rpkLoVyiwBGjKR/scene.splinecode"></spline-viewer>
     </div>
 
     <!-- Navigation -->
@@ -91,57 +85,38 @@
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
 
-    <script>
-        let splineLoaded = false;
-        let scrollProgress = 0;
-        let animationComplete = false;
-        const splineContainer = document.getElementById('splineContainer');
-        const splineViewer = document.getElementById('splineViewer');
+    <script type="module">
+        // Handle Spline animation lifecycle
+        const splineOverlay = document.getElementById('spline-overlay');
+        const splineViewer = document.querySelector('spline-viewer');
         const body = document.body;
 
-        // Lock scroll during animation
-        body.classList.add('spline-active');
+        // Animation duration (adjust based on your Spline animation length)
+        // Typical animations are 3-5 seconds, adjust as needed
+        const animationDuration = 4000; // 4 seconds in milliseconds
 
-        // Wait for Spline viewer to load
-        splineViewer.addEventListener('load', function() {
-            splineLoaded = true;
-            console.log('Spline animation loaded');
-            // Allow scrolling once loaded
-            body.classList.remove('spline-active');
-        });
-
-        window.addEventListener('scroll', function() {
-            if (!splineLoaded || animationComplete) return;
-
-            // Calculate scroll progress as a percentage (0 to 1)
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight - windowHeight;
-            scrollProgress = Math.min(window.scrollY / documentHeight, 1);
-
-            // Send scroll progress to Spline animation
-            // The animation's internal progress bar will update based on scroll
-            if (splineViewer && splineViewer.setScrollProgress) {
-                splineViewer.setScrollProgress(scrollProgress);
-            }
-
-            // When scroll reaches 100% (1.0), fade out the Spline container
-            if (scrollProgress >= 0.99) {
-                triggerSplineFadeOut();
-            }
-        });
-
-        function triggerSplineFadeOut() {
-            if (animationComplete) return;
-            animationComplete = true;
-
-            splineContainer.classList.add('fade-out');
-            
-            // After fade-out completes, allow normal scrolling and remove container
+        // Auto fade out after animation completes
+        setTimeout(() => {
+            splineOverlay.classList.add('fade-out');
+            // Remove overflow hidden after fade completes
             setTimeout(() => {
-                splineContainer.style.display = 'none';
-                body.classList.remove('spline-active');
-                body.classList.add('spline-complete');
-            }, 1000);
+                body.classList.remove('loading');
+                body.classList.add('loaded');
+            }, 1200); // Match the transition duration (1.2s)
+        }, animationDuration);
+
+        // Alternative: Listen for Spline viewer events (if animation signals completion)
+        if (splineViewer) {
+            splineViewer.addEventListener('load', () => {
+                console.log('Spline scene loaded');
+            });
+
+            splineViewer.addEventListener('mousedown', () => {
+                // Fade out if user clicks the animation
+                splineOverlay.classList.add('fade-out');
+                body.classList.remove('loading');
+                body.classList.add('loaded');
+            });
         }
 
         // 3D Parallax Scroll Effect
