@@ -229,6 +229,95 @@ h2::after {
     margin-top: 0.5rem;
 }
 
+/* Secretariat Letter Section */
+#secretariat-message {
+    background-color: var(--cream);
+    padding: 5rem 5%;
+}
+
+.secretariat-letter {
+    background: white;
+    border-radius: 10px;
+    padding: 4rem;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    border-left: 5px solid var(--accent-gold);
+}
+
+.letter-title {
+    font-size: 2rem;
+    color: var(--dark-brown);
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 1.5rem;
+}
+
+.letter-title::after {
+    display: none;
+}
+
+.letter-greeting {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--dark-brown);
+}
+
+.letter-content {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #333;
+}
+
+.letter-content p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.letter-section-title {
+    font-size: 1.4rem;
+    color: var(--dark-brown);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.letter-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.letter-list li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.letter-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.letter-closing {
+    font-style: italic;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+}
+
+.letter-signature {
+    margin-top: 2rem;
+    text-align: right;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
 /* Committees Section */
 .committees-grid {
     display: grid;
@@ -345,6 +434,14 @@ footer {
     h2 {
         font-size: 2rem;
     }
+
+    .secretariat-letter {
+        padding: 2rem;
+    }
+
+    .letter-content p {
+        text-align: left;
+    }
 }
 
 /* 3D Parallax Effects */
@@ -428,6 +525,16 @@ html {
 }
 
 .about:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+}
+
+.secretariat-letter {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.secretariat-letter:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 50px rgba(0,0,0,0.15);
 }
