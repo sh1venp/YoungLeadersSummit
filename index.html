@@ -6,89 +6,8 @@
     <title>Young Leaders Summit - Home</title>
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Loading Bar Styles */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--dark-brown) 0%, #2a1a0f 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease-out;
-            opacity: 1;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-bar-container {
-            width: 400px;
-            height: 6px;
-            background: rgba(245, 230, 211, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(201, 169, 97, 0.3);
-        }
-
-        .loading-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--accent-gold) 0%, #e8c47d 100%);
-            border-radius: 10px;
-            transition: width 0.2s ease;
-            box-shadow: 0 0 15px rgba(201, 169, 97, 0.8);
-        }
-
-        .loading-text {
-            color: var(--light-beige);
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-
-        .loading-percentage {
-            color: var(--accent-gold);
-            font-weight: 600;
-            font-size: 1.3rem;
-            margin-top: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .loading-bar-container {
-                width: 250px;
-            }
-
-            .loading-text {
-                font-size: 1rem;
-            }
-
-            .loading-percentage {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="loadingBar"></div>
-        </div>
-        <p class="loading-text">Loading Your Experience</p>
-        <p class="loading-percentage" id="loadingPercentage">0%</p>
-    </div>
-
-
-
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -125,51 +44,6 @@
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
     <script>
-        // Loading Bar Functionality
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const loadingBar = document.getElementById('loadingBar');
-        const loadingPercentage = document.getElementById('loadingPercentage');
-
-        let loadingComplete = false;
-        let targetProgress = 0;
-
-        window.addEventListener('scroll', function() {
-            // If loading is already complete, don't update
-            if (loadingComplete) {
-                return;
-            }
-
-            // Calculate max scroll distance (document height - viewport height)
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            
-            // Calculate scroll progress based on current scroll position
-            const scrollProgress = window.pageYOffset / maxScroll;
-
-            // Map scroll progress to loading progress, but make it need 70% of page scroll to reach 100%
-            targetProgress = Math.min((scrollProgress / 0.7) * 100, 100);
-
-            // Update loading bar
-            loadingBar.style.width = targetProgress + '%';
-            loadingPercentage.textContent = Math.round(targetProgress) + '%';
-
-            console.log('Scroll:', window.pageYOffset, 'Max:', maxScroll, 'Progress:', targetProgress);
-
-            // Hide overlay when fully loaded
-            if (targetProgress >= 100) {
-                loadingOverlay.classList.add('hidden');
-                loadingComplete = true;
-                
-                // Scroll to top after overlay fades
-                setTimeout(() => {
-                    window.scrollTo(0, 0);
-                }, 400);
-            }
-        });
-
-        // Set initial progress
-        loadingBar.style.width = '0%';
-        loadingPercentage.textContent = '0%';
-
         // 3D Parallax Scroll Effect
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
