@@ -132,7 +132,6 @@
 
         let loadingComplete = false;
         let targetProgress = 0;
-        const scrollThreshold = window.innerHeight * 3; // Need to scroll 3x viewport height to reach 100%
 
         window.addEventListener('scroll', function() {
             // If loading is already complete, don't update
@@ -140,6 +139,9 @@
                 return;
             }
 
+            // Calculate the total scrollable distance needed (3x viewport height)
+            const scrollThreshold = window.innerHeight * 3;
+            
             // Calculate scroll progress based on distance scrolled
             const scrollProgress = window.pageYOffset / scrollThreshold;
 
