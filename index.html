@@ -83,9 +83,12 @@
         <div class="loading-bar-container">
             <div class="loading-bar" id="loadingBar"></div>
         </div>
-        <p class="loading-text">Loading...</p>
+        <p class="loading-text">Loading Your Experience</p>
         <p class="loading-percentage" id="loadingPercentage">0%</p>
     </div>
+
+    <!-- Invisible Scroll Container for Loading -->
+    <div id="scrollContainer" style="height: 300vh;"></div>
 
     <!-- Navigation -->
     <nav>
@@ -127,19 +130,23 @@
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingBar = document.getElementById('loadingBar');
         const loadingPercentage = document.getElementById('loadingPercentage');
+        const scrollContainer = document.getElementById('scrollContainer');
 
-        let currentProgress = 0;
+        let loadingComplete = false;
         let targetProgress = 0;
-        const scrollThreshold = 0.8; // 80% scroll = 100% loading
+        const scrollThreshold = 3; // Need to scroll 3x viewport height to reach 100%
 
         window.addEventListener('scroll', function() {
-            // Calculate scroll percentage
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight - windowHeight;
-            const scrollProgress = window.pageYOffset / documentHeight;
+            // If loading is already complete, don't update
+            if (loadingComplete) {
+                return;
+            }
+
+            // Calculate scroll percentage based on scroll container
+            const scrollProgress = window.pageYOffset / (scrollContainer.scrollHeight - window.innerHeight);
 
             // Map scroll progress to loading progress (0 to 100%)
-            targetProgress = Math.min(scrollProgress / scrollThreshold * 100, 100);
+            targetProgress = Math.min(scrollProgress * 100, 100);
 
             // Update loading bar
             loadingBar.style.width = targetProgress + '%';
@@ -148,8 +155,12 @@
             // Hide overlay when fully loaded
             if (targetProgress >= 100) {
                 loadingOverlay.classList.add('hidden');
-            } else {
-                loadingOverlay.classList.remove('hidden');
+                loadingComplete = true;
+                
+                // Scroll to top after overlay fades
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 400);
             }
         });
 
