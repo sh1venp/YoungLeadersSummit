@@ -114,12 +114,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
-            margin-bottom: 3rem;
             background: white;
-            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-            min-height: 500px;
+            min-height: 100vh;
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
         }
@@ -143,11 +140,12 @@
         }
 
         .parallax-logo {
-            width: 80%;
-            height: 80%;
+            width: 60%;
+            height: 60%;
             object-fit: contain;
             filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
             transition: transform 0.6s ease-out;
+            will-change: transform;
         }
 
         .committee-content-section {
@@ -350,17 +348,21 @@
     </footer>
 
     <script>
-        // Parallax scrolling effect for logos
+        // Constrained parallax scrolling effect for logos
         window.addEventListener('scroll', function() {
             const logos = document.querySelectorAll('.parallax-logo');
             logos.forEach(logo => {
-                const rect = logo.getBoundingClientRect();
-                const scrollPosition = window.pageYOffset;
-                const elementPosition = rect.top + scrollPosition;
-                const distance = scrollPosition - elementPosition;
+                const section = logo.closest('.committee-logo-section');
+                const rect = section.getBoundingClientRect();
                 
-                // Apply parallax transform
-                logo.style.transform = `translateY(${distance * 0.3}px)`;
+                // Only apply parallax if section is in view
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    const parallaxAmount = (progress - 0.5) * 40;
+                    
+                    // Constrain movement to keep logo in bounds
+                    logo.style.transform = `translateY(${Math.max(-30, Math.min(30, parallaxAmount))}px)`;
+                }
             });
         });
     </script>
