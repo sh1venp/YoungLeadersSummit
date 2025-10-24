@@ -5,7 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Committees - Young Leaders Summit</title>
     <link rel="icon" type="image/png" href="logo1.png">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-brown: #3b2114;
+            --light-beige: #f5e6d3;
+            --cream: #faf7f2;
+            --accent-gold: #c9a961;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--dark-brown);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            color: var(--light-beige);
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--light-beige);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Committees Section */
+        #committees {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+
+        #committees h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--dark-brown);
+            letter-spacing: 2px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        #committees h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin: 1rem auto;
+        }
+
+        /* Split Screen Committee Card */
+        .committee-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            min-height: 500px;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .committee-split:nth-child(2) { animation-delay: 0.1s; }
+        .committee-split:nth-child(3) { animation-delay: 0.2s; }
+        .committee-split:nth-child(4) { animation-delay: 0.3s; }
+        .committee-split:nth-child(5) { animation-delay: 0.4s; }
+        .committee-split:nth-child(6) { animation-delay: 0.5s; }
+        .committee-split:nth-child(7) { animation-delay: 0.6s; }
+        .committee-split:nth-child(8) { animation-delay: 0.7s; }
+
+        .committee-logo-section {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #2a1a0f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .parallax-logo {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+            transition: transform 0.6s ease-out;
+        }
+
+        .committee-content-section {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+
+        .committee-type {
+            display: inline-block;
+            background-color: var(--light-beige);
+            color: var(--dark-brown);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            width: fit-content;
+        }
+
+        .committee-content-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-brown);
+            letter-spacing: 1px;
+        }
+
+        .committee-content-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2a1a0f;
+            color: var(--light-beige);
+            text-align: center;
+            padding: 2rem 5%;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .committee-split {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .committee-logo-section {
+                min-height: 300px;
+            }
+
+            .committee-content-section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #committees h2 {
+                font-size: 2rem;
+            }
+
+            .committee-content-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .committee-content-section {
+                padding: 1.5rem;
+            }
+
+            .committee-content-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -26,45 +263,79 @@
 
     <!-- Committees Section -->
     <section id="committees">
-        <h2 class="fade-in-up">Our Committees</h2>
-        <div class="committees-grid">
-            <div class="committee-card fade-in-up delay-1">
+        <h2>Our Committees</h2>
+        
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="loksabha.png" alt="Lok Sabha" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">Indian Committee</span>
                 <h3>Lok Sabha</h3>
                 <p>Agenda: Reviewing the Arms Act, 1959, and legislating new provisions to curb the proliferation of illegal and 'Katta' (country-made) firearms, with special attention to law enforcement and socio-economic remediation in the states of Bihar and Punjab.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-2">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="disec.png" alt="UNGA DISEC" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">UN Committee</span>
                 <h3>UNGA DISEC</h3>
                 <p>Agenda: Establishing a multilateral framework to monitor and restrict the illicit and grey-market flow of small arms and light weapons (SALW) to states perpetuating systematic human rights violations and armed conflict.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-3">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="unhrc.png" alt="UNHRC" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">UN Committee</span>
                 <h3>UNHRC</h3>
                 <p>Agenda: Addressing the legal and human rights implications of applying Sharia law, with a focus on mitigating corporal and capital punishment and ensuring fair trial standards and due process for all citizens.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-4">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="crisis.png" alt="The 1943 High-Level Strategic Summit" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">Historical Crisis</span>
                 <h3>The 1943 High-Level Strategic Summit</h3>
-                <p>Agenda: 𝖢̷ ̷𝖫̷ ̷𝖠̷ ̷𝖲̷ ̷𝖲̷ ̷𝖨̷ ̷𝖥̷ ̷𝖤̷ ̷𝖣̷ </p>
+                <p>Agenda: Navigate the complex geopolitical landscape of World War II, addressing critical diplomatic negotiations and strategic military decisions during one of history's most pivotal moments.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-5">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="unodc.png" alt="UNODC" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">UN Committee</span>
                 <h3>UNODC</h3>
                 <p>Agenda: Exploring measures to dismantle the operational and financial nexus between transnational organized crime, the illicit drugs trade, and arms trafficking, with emphasis on securing vulnerable maritime and land borders.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-3">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="uncsw.png" alt="UNCSW" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">UN Committee</span>
                 <h3>UNCSW</h3>
                 <p>Agenda: Addressing the structural barriers to women's political participation and leadership, and formulating strategies to achieve gender parity in legislative, executive, and judicial bodies worldwide.</p>
             </div>
+        </div>
 
-            <div class="committee-card fade-in-up delay-4">
+        <div class="committee-split">
+            <div class="committee-logo-section">
+                <img src="ip.png" alt="International Press" class="parallax-logo">
+            </div>
+            <div class="committee-content-section">
                 <span class="committee-type">Press Committee</span>
                 <h3>International Press (IP)</h3>
                 <p>Agenda: Documenting the conference through photography, journalism, and caricature. The IP team will capture the essence of diplomatic debate and produce comprehensive coverage of all committee proceedings.</p>
@@ -77,35 +348,20 @@
         <p>&copy; 2025 Young Leaders Summit. All rights reserved.</p>
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
+
     <script>
-        // 3D Parallax Scroll Effect
+        // Parallax scrolling effect for logos
         window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxBg = document.querySelector('.parallax-bg');
-            const parallaxContent = document.querySelector('.parallax-content');
-            
-            if (parallaxBg && parallaxContent) {
-                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
-                parallaxContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) translateZ(0)';
-            }
-        });
-
-        // Smooth fade-in animations on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
+            const logos = document.querySelectorAll('.parallax-logo');
+            logos.forEach(logo => {
+                const rect = logo.getBoundingClientRect();
+                const scrollPosition = window.pageYOffset;
+                const elementPosition = rect.top + scrollPosition;
+                const distance = scrollPosition - elementPosition;
+                
+                // Apply parallax transform
+                logo.style.transform = `translateY(${distance * 0.3}px)`;
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach(element => {
-            observer.observe(element);
         });
     </script>
 </body>
