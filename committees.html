@@ -24,15 +24,18 @@
             background-color: var(--cream);
             color: var(--dark-brown);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation */
         nav {
             background-color: var(--dark-brown);
             padding: 1rem 5%;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
@@ -83,24 +86,23 @@
             color: var(--accent-gold);
         }
 
-        /* Committees Section */
-        #committees {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 5rem 5%;
+        /* Page Header */
+        .page-header {
+            margin-top: 90px;
+            padding: 3rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #2a1a0f 100%);
+            color: var(--light-beige);
         }
 
-        #committees h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: var(--dark-brown);
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             letter-spacing: 2px;
             font-weight: 400;
-            position: relative;
         }
 
-        #committees h2::after {
+        .page-header h1::after {
             content: '';
             display: block;
             width: 100px;
@@ -109,25 +111,27 @@
             margin: 1rem auto;
         }
 
+        /* Committees Container */
+        #committees {
+            padding: 0;
+        }
+
         /* Split Screen Committee Card */
         .committee-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0;
-            background: white;
-            overflow: hidden;
             min-height: 100vh;
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
+            position: relative;
         }
 
-        .committee-split:nth-child(2) { animation-delay: 0.1s; }
-        .committee-split:nth-child(3) { animation-delay: 0.2s; }
-        .committee-split:nth-child(4) { animation-delay: 0.3s; }
-        .committee-split:nth-child(5) { animation-delay: 0.4s; }
-        .committee-split:nth-child(6) { animation-delay: 0.5s; }
-        .committee-split:nth-child(7) { animation-delay: 0.6s; }
-        .committee-split:nth-child(8) { animation-delay: 0.7s; }
+        /* Alternate layout for odd/even items */
+        .committee-split:nth-child(even) {
+            direction: rtl;
+        }
+
+        .committee-split:nth-child(even) > * {
+            direction: ltr;
+        }
 
         .committee-logo-section {
             position: relative;
@@ -139,46 +143,79 @@
             perspective: 1000px;
         }
 
+        /* Animated gradient background */
+        .committee-logo-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(201,169,97,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .parallax-logo {
-            width: 60%;
-            height: 60%;
+            width: 70%;
+            max-width: 500px;
+            height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
-            transition: transform 0.6s ease-out;
-            will-change: transform;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+            transition: all 0.3s ease-out;
+            position: relative;
+            z-index: 10;
         }
 
         .committee-content-section {
-            padding: 3rem;
+            padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             background: white;
+            position: relative;
+        }
+
+        .committee-content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent-gold);
         }
 
         .committee-type {
             display: inline-block;
             background-color: var(--light-beige);
             color: var(--dark-brown);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
+            padding: 0.4rem 1.2rem;
+            border-radius: 25px;
             font-size: 0.85rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             font-weight: 600;
             letter-spacing: 0.5px;
             width: fit-content;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .committee-content-section h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             color: var(--dark-brown);
             letter-spacing: 1px;
+            line-height: 1.2;
         }
 
         .committee-content-section p {
-            font-size: 1rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.9;
             color: #555;
         }
 
@@ -191,54 +228,129 @@
             font-size: 0.9rem;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 1024px) {
             .committee-split {
                 grid-template-columns: 1fr;
                 min-height: auto;
             }
 
+            .committee-split:nth-child(even) {
+                direction: ltr;
+            }
+
             .committee-logo-section {
-                min-height: 300px;
+                min-height: 50vh;
+                order: 1;
             }
 
             .committee-content-section {
-                padding: 2rem;
+                padding: 3rem 2rem;
+                min-height: 50vh;
+                order: 2;
+            }
+
+            .committee-content-section::before {
+                width: 100%;
+                height: 5px;
+                top: 0;
+                left: 0;
+            }
+
+            .parallax-logo {
+                width: 60%;
             }
         }
 
         @media (max-width: 768px) {
-            #committees h2 {
+            .page-header h1 {
                 font-size: 2rem;
+            }
+
+            nav {
+                padding: 0.8rem 5%;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .nav-title {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .committee-content-section h3 {
+                font-size: 1.8rem;
+            }
+
+            .committee-content-section p {
+                font-size: 1rem;
+            }
+
+            .committee-content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .committee-logo-section {
+                min-height: 40vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 2rem 5%;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
             }
 
             .committee-content-section h3 {
                 font-size: 1.5rem;
             }
 
-            .committee-content-section {
-                padding: 1.5rem;
+            .committee-logo-section {
+                min-height: 35vh;
             }
 
-            .committee-content-section p {
-                font-size: 0.95rem;
+            .parallax-logo {
+                width: 70%;
             }
         }
 
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .committee-split {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .committee-split:nth-child(1) { animation-delay: 0.1s; }
+        .committee-split:nth-child(2) { animation-delay: 0.2s; }
+        .committee-split:nth-child(3) { animation-delay: 0.3s; }
+        .committee-split:nth-child(4) { animation-delay: 0.4s; }
+        .committee-split:nth-child(5) { animation-delay: 0.5s; }
+        .committee-split:nth-child(6) { animation-delay: 0.6s; }
+        .committee-split:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -259,12 +371,15 @@
         </div>
     </nav>
 
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Our Committees</h1>
+    </div>
+
     <!-- Committees Section -->
     <section id="committees">
-        <h2>Our Committees</h2>
-        
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="loksabha">
                 <img src="loksabha.png" alt="Lok Sabha" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -275,7 +390,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="disec">
                 <img src="disec.png" alt="UNGA DISEC" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -286,7 +401,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="unhrc">
                 <img src="unhrc.png" alt="UNHRC" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -297,7 +412,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="crisis">
                 <img src="crisis.png" alt="The 1943 High-Level Strategic Summit" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -308,7 +423,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="unodc">
                 <img src="unodc.png" alt="UNODC" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -319,7 +434,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="uncsw">
                 <img src="uncsw.png" alt="UNCSW" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -330,7 +445,7 @@
         </div>
 
         <div class="committee-split">
-            <div class="committee-logo-section">
+            <div class="committee-logo-section" data-committee="ip">
                 <img src="ip.png" alt="International Press" class="parallax-logo">
             </div>
             <div class="committee-content-section">
@@ -348,23 +463,81 @@
     </footer>
 
     <script>
-        // Constrained parallax scrolling effect for logos
-        window.addEventListener('scroll', function() {
+        // Enhanced parallax effect with scroll and mouse tracking
+        let ticking = false;
+
+        function updateParallax() {
             const logos = document.querySelectorAll('.parallax-logo');
+            
             logos.forEach(logo => {
                 const section = logo.closest('.committee-logo-section');
                 const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
                 
-                // Only apply parallax if section is in view
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    const parallaxAmount = (progress - 0.5) * 40;
+                // Check if section is in viewport
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    // Calculate scroll progress (0 to 1) through the viewport
+                    const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
                     
-                    // Constrain movement to keep logo in bounds
-                    logo.style.transform = `translateY(${Math.max(-30, Math.min(30, parallaxAmount))}px)`;
+                    // Enhanced parallax movement
+                    const parallaxY = (progress - 0.5) * 60;
+                    const scale = 1 + (Math.abs(progress - 0.5) * 0.1);
+                    
+                    logo.style.transform = `translateY(${parallaxY}px) scale(${scale})`;
                 }
             });
-        });
+            
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+        
+        // Mouse tracking for additional depth effect (desktop only)
+        if (window.innerWidth > 1024) {
+            document.querySelectorAll('.committee-logo-section').forEach(section => {
+                section.addEventListener('mousemove', (e) => {
+                    const logo = section.querySelector('.parallax-logo');
+                    const rect = section.getBoundingClientRect();
+                    
+                    // Calculate mouse position relative to section center (-0.5 to 0.5)
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    
+                    // Get current scroll transform
+                    const currentTransform = logo.style.transform || '';
+                    const translateYMatch = currentTransform.match(/translateY\(([^)]+)\)/);
+                    const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
+                    
+                    const translateY = translateYMatch ? translateYMatch[1] : '0px';
+                    const scale = scaleMatch ? scaleMatch[1] : '1';
+                    
+                    // Apply subtle rotation based on mouse position
+                    logo.style.transform = `translateY(${translateY}) scale(${scale}) rotateX(${y * 10}deg) rotateY(${x * 10}deg)`;
+                });
+                
+                section.addEventListener('mouseleave', () => {
+                    const logo = section.querySelector('.parallax-logo');
+                    const currentTransform = logo.style.transform || '';
+                    const translateYMatch = currentTransform.match(/translateY\(([^)]+)\)/);
+                    const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
+                    
+                    const translateY = translateYMatch ? translateYMatch[1] : '0px';
+                    const scale = scaleMatch ? scaleMatch[1] : '1';
+                    
+                    logo.style.transform = `translateY(${translateY}) scale(${scale})`;
+                });
+            });
+        }
+
+        // Initial update
+        updateParallax();
     </script>
 </body>
 </html>
