@@ -7,12 +7,35 @@
     <link rel="icon" type="image/png" href="logo1.png">
     <link rel="stylesheet" href="styles.css">
     <style>
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+        }
+
         .founders-section {
             max-width: 900px;
             margin: 3rem auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .secretariat-grid {
+            max-width: 900px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 968px) {
+            .secretariat-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .founder-card {
@@ -22,6 +45,8 @@
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
         }
 
         .founder-card:hover {
@@ -35,7 +60,7 @@
             color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
@@ -68,6 +93,83 @@
             background: var(--accent-gold);
             margin: 1rem auto;
         }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin: 4rem 0 2rem;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background-color: var(--light-beige);
+            margin: 0.8rem auto;
+        }
+
+        /* Parallax background layers */
+        .parallax-bg-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .parallax-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            background: var(--accent-gold);
+        }
+
+        .parallax-circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+        }
+
+        .parallax-circle-2 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 15%;
+        }
+
+        .parallax-circle-3 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 20%;
+        }
+
+        .parallax-circle-4 {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 25%;
+        }
+
+        @media (max-width: 768px) {
+            .founders-section {
+                grid-template-columns: 1fr;
+            }
+
+            .secretariat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -88,7 +190,15 @@
     </nav>
 
     <!-- Contact Section -->
-    <section class="contact" style="min-height: 80vh;">
+    <section class="contact parallax-container" style="min-height: 80vh;">
+        <!-- Parallax Background Elements -->
+        <div class="parallax-bg-layer">
+            <div class="parallax-circle parallax-circle-1"></div>
+            <div class="parallax-circle parallax-circle-2"></div>
+            <div class="parallax-circle parallax-circle-3"></div>
+            <div class="parallax-circle parallax-circle-4"></div>
+        </div>
+
         <h2 class="fade-in-up">Get In Touch</h2>
         <div class="contact-info fade-in-up delay-1">
             <p>Have any query or interested in partnering with us?</p>
@@ -98,8 +208,10 @@
         </div>
 
         <!-- Co-Founders Section -->
-        <div class="founders-section fade-in-up delay-2">
-            <div class="founder-card">
+        <div class="section-title fade-in-up delay-2">Leadership Team</div>
+        
+        <div class="founders-section fade-in-up delay-3">
+            <div class="founder-card" data-parallax-speed="0.5">
                 <div class="founder-title">Co-Founder</div>
                 <div class="founder-title">Director General</div>
                 <div class="founder-name">Shiv Pasupuleti</div>
@@ -108,7 +220,7 @@
                     <a href="tel:+919811903608">+91 98119 03608</a>
                 </div>
             </div>
-            <div class="founder-card">
+            <div class="founder-card" data-parallax-speed="0.3">
                 <div class="founder-title">Co-Founder</div>
                 <div class="founder-title">Deputy Director General</div>
                 <div class="founder-name">Atharv Shakya</div>
@@ -119,7 +231,37 @@
             </div>
         </div>
 
-        <div class="social-links fade-in-up delay-3">
+        <!-- Secretary Generals Section -->
+        <div class="section-title fade-in-up delay-4">Secretariat</div>
+        
+        <div class="secretariat-grid fade-in-up delay-5">
+            <div class="founder-card" data-parallax-speed="0.4">
+                <div class="founder-title">Secretary General</div>
+                <div class="founder-name">Yajas Chawla</div>
+                <div class="divider"></div>
+                <div class="founder-contact">
+                    <a href="tel:+919599134103">+91 95991 34103</a>
+                </div>
+            </div>
+            <div class="founder-card" data-parallax-speed="0.6">
+                <div class="founder-title">Secretary General</div>
+                <div class="founder-name">Yuval Gupta</div>
+                <div class="divider"></div>
+                <div class="founder-contact">
+                    <a href="tel:+919205657034">+91 92056 57034</a>
+                </div>
+            </div>
+            <div class="founder-card" data-parallax-speed="0.35">
+                <div class="founder-title">Secretary General</div>
+                <div class="founder-name">Girik Garg</div>
+                <div class="divider"></div>
+                <div class="founder-contact">
+                    <a href="tel:+919220994268">+91 92209 94268</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-links fade-in-up delay-6">
             <a href="https://www.instagram.com/young.leaders.summit.india/" target="_blank">Instagram</a>
             <a href="mailto:youngleaderssummitinfo@gmail.com">Email</a>
         </div>
@@ -130,16 +272,49 @@
         <p>&copy; 2025 Young Leaders Summit. All rights reserved.</p>
         <p>An independent youth-run initiative committed to developing future leaders.</p>
     </footer>
+    
     <script>
-        // 3D Parallax Scroll Effect
+        // Enhanced 3D Parallax Scroll Effect for background elements
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
-            const parallaxBg = document.querySelector('.parallax-bg');
-            const parallaxContent = document.querySelector('.parallax-content');
+            const parallaxCircles = document.querySelectorAll('.parallax-circle');
             
-            if (parallaxBg && parallaxContent) {
-                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
-                parallaxContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) translateZ(0)';
+            parallaxCircles.forEach((circle, index) => {
+                const speed = 0.3 + (index * 0.15);
+                const yPos = -(scrolled * speed);
+                circle.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+        // Parallax effect for founder cards
+        let ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrolled = window.pageYOffset;
+                    const cards = document.querySelectorAll('.founder-card');
+                    
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        const cardCenter = rect.top + rect.height / 2;
+                        const windowCenter = window.innerHeight / 2;
+                        const distanceFromCenter = (cardCenter - windowCenter) / windowCenter;
+                        const speed = parseFloat(card.dataset.parallaxSpeed) || 0.5;
+                        
+                        // Calculate parallax offset
+                        const offset = distanceFromCenter * 20 * speed;
+                        
+                        // Only apply if card is in viewport
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            card.style.transform = `translateY(${offset}px)`;
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
             }
         });
 
@@ -159,6 +334,17 @@
 
         document.querySelectorAll('.fade-in-up').forEach(element => {
             observer.observe(element);
+        });
+
+        // Add hover effect for 3D tilt on cards
+        document.querySelectorAll('.founder-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transition = 'transform 0.5s ease';
+            });
         });
     </script>
 </body>
