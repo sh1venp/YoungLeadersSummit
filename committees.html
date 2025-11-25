@@ -527,7 +527,7 @@
                 <!-- UNSC -->
                 <div class="committee-card">
                     <div class="committee-logo-container">
-                        <img src="disec.png" alt="UNSC" class="committee-logo">
+                        <img src="unsc.png" alt="UNSC" class="committee-logo">
                     </div>
                     <div class="committee-info">
                         <div class="committee-badges">
@@ -559,7 +559,7 @@
             <button class="scroll-btn" id="scrollRight">›</button>
 
             <div class="scroll-indicator">
-                Use the navigation buttons to explore all our committees.
+                Use the navigation buttons to explore all the committees.
             </div>
         </div>
     </section>
@@ -579,12 +579,13 @@
         const scrollAmount = 420;
 
         scrollLeftBtn.addEventListener('click', () => {
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
             const currentScroll = scrollContainer.scrollLeft;
             
             if (currentScroll <= 0) {
                 // Loop to end
                 scrollContainer.scrollTo({
-                    left: scrollContainer.scrollWidth - scrollContainer.clientWidth,
+                    left: maxScroll,
                     behavior: 'smooth'
                 });
             } else {
