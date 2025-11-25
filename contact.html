@@ -36,8 +36,8 @@
         .founders-section {
             max-width: 900px;
             margin: 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 2rem;
             position: relative;
             z-index: 2;
@@ -198,13 +198,10 @@
 
         @media (max-width: 968px) {
             .leadership-row,
-            .leadership-row-two {
+            .leadership-row-two,
+            .founders-section {
                 flex-direction: column;
                 align-items: center;
-            }
-
-            .founders-section {
-                grid-template-columns: 1fr;
             }
 
             .founder-card {
