@@ -126,6 +126,7 @@
             font-weight: 600;
             font-size: 1rem;
             letter-spacing: 0.5px;
+            animation: scroll-left 15s linear infinite;
         }
 
         .announcement-item {
@@ -150,11 +151,6 @@
             100% {
                 transform: translateX(-50%);
             }
-        }
-
-        /* Speed up the scroll animation */
-        .announcement-content {
-            animation: scroll-left 15s linear infinite;
         }
 
         /* Adjust nav position when announcement bar is visible */
@@ -192,62 +188,116 @@
             transform: translateY(-50%) scale(1.1);
         }
 
-        /* Registration Buttons Section */
-        .registration-section {
-            background: linear-gradient(135deg, #3b2114 0%, #2a1a0f 100%);
-            padding: 4rem 5%;
-            text-align: center;
+        /* Countdown Timer Styles */
+        .countdown-section {
+            background: rgba(245, 230, 211, 0.05);
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            border-radius: 15px;
+            border: 2px solid rgba(201, 169, 97, 0.3);
         }
 
-        .registration-section h2 {
-            color: #f5e6d3;
-            margin-bottom: 2.5rem;
+        .countdown-title {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            letter-spacing: 1.5px;
         }
 
-        .registration-buttons {
+        .countdown-timer {
             display: flex;
-            gap: 2rem;
             justify-content: center;
+            gap: 2rem;
             flex-wrap: wrap;
-            max-width: 900px;
+        }
+
+        .countdown-box {
+            background: rgba(245, 230, 211, 0.1);
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            min-width: 100px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+            background: rgba(245, 230, 211, 0.15);
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            line-height: 1;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--light-beige);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Registration Forms Section */
+        .forms-section {
+            background: var(--cream);
+            padding: 5rem 5%;
+        }
+
+        .forms-section h2 {
+            color: var(--dark-brown);
+            margin-bottom: 3rem;
+        }
+
+        .forms-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .registration-card {
-            background: rgba(245, 230, 211, 0.1);
-            border: 2px solid #c9a961;
+        .form-card {
+            background: white;
+            border: 2px solid var(--accent-gold);
             border-radius: 15px;
             padding: 2.5rem 2rem;
             flex: 1;
             min-width: 280px;
-            max-width: 400px;
+            max-width: 350px;
+            text-align: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
-        .registration-card:hover {
+        .form-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(201, 169, 97, 0.3);
-            background: rgba(245, 230, 211, 0.15);
         }
 
-        .registration-card h3 {
-            color: #c9a961;
-            font-size: 1.8rem;
+        .form-card h3 {
+            color: var(--dark-brown);
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             letter-spacing: 1px;
         }
 
-        .registration-card p {
-            color: #f5e6d3;
-            font-size: 1rem;
+        .form-card p {
+            color: #555;
+            font-size: 0.95rem;
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
 
-        .registration-card .cta-button {
-            background-color: #c9a961;
-            color: #3b2114;
+        .form-card .cta-button {
+            background-color: var(--accent-gold);
+            color: var(--dark-brown);
             padding: 0.9rem 2rem;
             text-decoration: none;
             font-size: 1rem;
@@ -258,10 +308,10 @@
             letter-spacing: 0.5px;
         }
 
-        .registration-card .cta-button:hover {
-            background-color: #f5e6d3;
+        .form-card .cta-button:hover {
+            background-color: var(--dark-brown);
+            color: var(--light-beige);
             transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -273,21 +323,34 @@
                 padding: 0 2rem;
             }
 
-            .registration-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .registration-card {
-                max-width: 100%;
-            }
-
             body.announcement-active nav {
                 top: 2.5rem;
             }
 
             body.announcement-active .hero {
                 padding-top: 10rem;
+            }
+
+            .countdown-timer {
+                gap: 1rem;
+            }
+
+            .countdown-box {
+                padding: 1rem 1.5rem;
+                min-width: 80px;
+            }
+
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+
+            .forms-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-card {
+                max-width: 100%;
             }
         }
     </style>
@@ -312,12 +375,12 @@
         <div class="announcement-content">
             <span class="announcement-item">Delegate Pre-Registrations Now Open!</span>
             <span class="announcement-item">International Press Pre-Registrations Available</span>
-            <span class="announcement-item">Secretariat Applications closing soon!</span>
+            <span class="announcement-item">Secretariat Applications Closing Soon!</span>
             <span class="announcement-item">Save the Dates! 4th - 5th July 2026</span>
             <!-- Duplicate for seamless scroll -->
             <span class="announcement-item">Delegate Pre-Registrations Now Open!</span>
             <span class="announcement-item">International Press Pre-Registrations Available</span>
-            <span class="announcement-item">Secretariat Applications closing soon!</span>
+            <span class="announcement-item">Secretariat Applications Closing Soon!</span>
             <span class="announcement-item">Save the Dates! 4th - 5th July 2026</span>
         </div>
     </div>
@@ -345,15 +408,52 @@
             <h1>Young Leaders Summit</h1>
             <p class="subtitle">The only independent youth-run MUN in North India</p>
             <p class="tagline">Empowering the next generation of global leaders through diplomacy and debate</p>
-            <p class="tagline">Delegate Registrations Opening Soon!</p>
-            <p class="tagline">Secretariat Applications Now Live!</p>
             <div class="date">4th - 5th July 2026</div>
-            <br>
-            <a href="https://forms.gle/Biqthj3YHmkpMhHt7" class="cta-button">Secretariat Applications!</a>
-            <br><br>
-            <a href="https://forms.gle/saYwFosTpYXeYNsU6" class="cta-button">Delegate Pre-Registration</a>
-            <br><br>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPJxtHefz95AQFjLentmwPnoWb-AtB3TEwakOgI6hFX1omDg/viewform" class="cta-button">IP Pre-Registration</a>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-section">
+                <div class="countdown-title">Conference Begins In</div>
+                <div class="countdown-timer" id="countdown">
+                    <div class="countdown-box">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Forms Section -->
+    <section class="forms-section">
+        <h2 class="fade-in-up">Registration & Applications</h2>
+        <div class="forms-container">
+            <div class="form-card fade-in-up delay-1">
+                <h3>Secretariat Applications</h3>
+                <p>Join our organizing team and gain leadership experience. Applications closing soon!</p>
+                <a href="https://forms.gle/Biqthj3YHmkpMhHt7" class="cta-button" target="_blank">Apply Now</a>
+            </div>
+            <div class="form-card fade-in-up delay-2">
+                <h3>Single Delegation Pre-Registrations</h3>
+                <p>Participate in engaging debates on pressing global issues. Open to students in grades VI-XII.</p>
+                <a href="https://forms.gle/saYwFosTpYXeYNsU6" class="cta-button" target="_blank">Pre-Register</a>
+            </div>
+            <div class="form-card fade-in-up delay-3">
+                <h3>International Press Pre-Registrations</h3>
+                <p>Document the conference and create compelling content as part of our press team.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPJxtHefz95AQFjLentmwPnoWb-AtB3TEwakOgI6hFX1omDg/viewform" class="cta-button" target="_blank">Pre-Register</a>
+            </div>
         </div>
     </section>
 
@@ -364,6 +464,32 @@
     </footer>
 
     <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const eventDate = new Date('July 4, 2026 09:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="countdown-title">The Conference Has Begun!</div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
         // Loading Screen Logic
         (function() {
             const loadingScreen = document.getElementById('loading-screen');
@@ -372,7 +498,7 @@
             const announcementBar = document.getElementById('announcement-bar');
             let loadingComplete = false;
             let scrollAmount = 0;
-            const maxScroll = 800; // Pixels needed to scroll to complete loading
+            const maxScroll = 800;
 
             function updateProgress(scrollDelta) {
                 if (loadingComplete) return;
@@ -390,23 +516,19 @@
                         loadingScreen.classList.add('fade-out');
                         document.body.classList.remove('loading');
                         
-                        // Show announcement bar after loading completes
                         setTimeout(() => {
                             announcementBar.classList.add('show');
                             document.body.classList.add('announcement-active');
                         }, 500);
                         
-                        // Remove loading screen from DOM after fade
                         setTimeout(() => {
                             loadingScreen.style.display = 'none';
-                            // Scroll to top to ensure clean start
                             window.scrollTo(0, 0);
                         }, 800);
                     }, 300);
                 }
             }
 
-            // Handle wheel events
             function handleWheel(e) {
                 if (!loadingComplete) {
                     e.preventDefault();
@@ -414,7 +536,6 @@
                 }
             }
 
-            // Handle touch events for mobile
             let touchStartY = 0;
             function handleTouchStart(e) {
                 if (!loadingComplete) {
@@ -431,19 +552,16 @@
                 }
             }
 
-            // Add event listeners
             window.addEventListener('wheel', handleWheel, { passive: false });
             window.addEventListener('touchstart', handleTouchStart, { passive: false });
             window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
-            // Clean up event listeners after loading completes
             function cleanup() {
                 window.removeEventListener('wheel', handleWheel);
                 window.removeEventListener('touchstart', handleTouchStart);
                 window.removeEventListener('touchmove', handleTouchMove);
             }
 
-            // Monitor for loading completion
             const checkComplete = setInterval(() => {
                 if (loadingComplete) {
                     cleanup();
@@ -457,28 +575,13 @@
             const announcementBar = document.getElementById('announcement-bar');
             announcementBar.classList.remove('show');
             document.body.classList.remove('announcement-active');
-            
-            // Store in sessionStorage so it doesn't show again this session
             sessionStorage.setItem('announcementClosed', 'true');
         }
 
-        // Check if announcement was previously closed
         window.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('announcementClosed') === 'true') {
                 document.getElementById('announcement-bar').classList.remove('show');
                 document.body.classList.remove('announcement-active');
-            }
-        });
-
-        // 3D Parallax Scroll Effect (for main content)
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxBg = document.querySelector('.parallax-bg');
-            const parallaxContent = document.querySelector('.parallax-content');
-            
-            if (parallaxBg && parallaxContent) {
-                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
-                parallaxContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px) translateZ(0)';
             }
         });
 
