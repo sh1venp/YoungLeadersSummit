@@ -16,59 +16,37 @@
             max-width: 900px;
             margin: 3rem auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .secretariat-grid {
-            max-width: 900px;
-            margin: 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Director General - Single Card Centered */
-        .dg-section {
-            max-width: 900px;
-            margin: 3rem auto;
-            display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             position: relative;
             z-index: 2;
         }
 
-        .dg-section .founder-card {
-            grid-column: 1 / 3;
-            max-width: calc(50% - 1rem);
-            margin: 0 auto;
+        /* Leadership Team Container */
+        .leadership-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Director General - Centered Single Card */
+        .dg-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .dg-card {
+            width: calc(50% - 1rem);
+            max-width: 435px;
         }
 
         /* Deputy Director Generals Grid */
         .ddg-grid {
-            max-width: 900px;
-            margin: 3rem auto;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        @media (max-width: 968px) {
-            .secretariat-grid, .ddg-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .dg-section {
-                max-width: 100%;
-                padding: 0 1rem;
-            }
         }
 
         .founder-card {
@@ -224,7 +202,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .secretariat-grid, .ddg-grid {
+            .dg-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .ddg-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -298,34 +281,36 @@
         <!-- Leadership Team Section -->
         <div class="section-title fade-in-up delay-4">The Leadership Team</div>
         
-        <!-- Director General - Single Card Centered -->
-        <div class="dg-section fade-in-up delay-5">
-            <div class="founder-card" data-parallax-speed="0.6">
-                <div class="founder-title">Director General</div>
-                <div class="founder-name">Yuval Gupta</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919205657034">+91 92056 57034</a>
+        <div class="leadership-container fade-in-up delay-5">
+            <!-- Director General - Centered -->
+            <div class="dg-wrapper">
+                <div class="founder-card dg-card" data-parallax-speed="0.6">
+                    <div class="founder-title">Director General</div>
+                    <div class="founder-name">Yuval Gupta</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919205657034">+91 92056 57034</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Deputy Director Generals Grid -->
-        <div class="ddg-grid fade-in-up delay-6">
-            <div class="founder-card" data-parallax-speed="0.4">
-                <div class="founder-title">Deputy Director General</div>
-                <div class="founder-name">Yajas Chawla</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919599134103">+91 95991 34103</a>
+            <!-- Deputy Director Generals -->
+            <div class="ddg-grid">
+                <div class="founder-card" data-parallax-speed="0.4">
+                    <div class="founder-title">Deputy Director General</div>
+                    <div class="founder-name">Yajas Chawla</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919599134103">+91 95991 34103</a>
+                    </div>
                 </div>
-            </div>
-            <div class="founder-card" data-parallax-speed="0.35">
-                <div class="founder-title">Deputy Director General</div>
-                <div class="founder-name">Girik Garg</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919220994268">+91 92209 94268</a>
+                <div class="founder-card" data-parallax-speed="0.35">
+                    <div class="founder-title">Deputy Director General</div>
+                    <div class="founder-name">Girik Garg</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919220994268">+91 92209 94268</a>
+                    </div>
                 </div>
             </div>
         </div>
