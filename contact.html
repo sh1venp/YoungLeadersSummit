@@ -12,63 +12,40 @@
             overflow: hidden;
         }
 
+        .leadership-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .leadership-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .leadership-row-two {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
         .founders-section {
             max-width: 900px;
             margin: 3rem auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .secretariat-grid {
-            max-width: 900px;
-            margin: 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Director General - Single Card Centered */
-        .dg-section {
-            max-width: 900px;
-            margin: 3rem auto;
-            display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             position: relative;
             z-index: 2;
         }
 
-        .dg-section .founder-card {
-            grid-column: 1 / 3;
-            max-width: calc(50% - 1rem);
-            margin: 0 auto;
-        }
-
-        /* Deputy Director Generals Grid */
-        .ddg-grid {
-            max-width: 900px;
-            margin: 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        @media (max-width: 968px) {
-            .secretariat-grid, .ddg-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .dg-section {
-                max-width: 100%;
-                padding: 0 1rem;
-            }
+        .founder-card {
+            width: 100%;
+            max-width: 350px;
         }
 
         .founder-card {
@@ -219,15 +196,23 @@
             right: 18%;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
+            .leadership-row,
+            .leadership-row-two {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .founders-section {
                 grid-template-columns: 1fr;
             }
 
-            .secretariat-grid, .ddg-grid {
-                grid-template-columns: 1fr;
+            .founder-card {
+                max-width: 100%;
             }
+        }
 
+        @media (max-width: 768px) {
             .section-title {
                 font-size: 1.5rem;
             }
@@ -298,39 +283,41 @@
         <!-- Leadership Team Section -->
         <div class="section-title fade-in-up delay-4">The Leadership Team</div>
         
-        <!-- Director General - Single Card Centered -->
-        <div class="dg-section fade-in-up delay-5">
-            <div class="founder-card" data-parallax-speed="0.6">
-                <div class="founder-title">     Director General     </div>
-                <div class="founder-name">Yuval Gupta</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919205657034">+91 92056 57034</a>
+        <div class="leadership-container fade-in-up delay-5">
+            <!-- First Row: Yuval (centered) -->
+            <div class="leadership-row">
+                <div class="founder-card" data-parallax-speed="0.6">
+                    <div class="founder-title">Director General</div>
+                    <div class="founder-name">Yuval Gupta</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919205657034">+91 92056 57034</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row: Deputy Director Generals -->
+            <div class="leadership-row-two">
+                <div class="founder-card" data-parallax-speed="0.4">
+                    <div class="founder-title">Deputy Director General</div>
+                    <div class="founder-name">Yajas Chawla</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919599134103">+91 95991 34103</a>
+                    </div>
+                </div>
+                <div class="founder-card" data-parallax-speed="0.35">
+                    <div class="founder-title">Deputy Director General</div>
+                    <div class="founder-name">Girik Garg</div>
+                    <div class="divider"></div>
+                    <div class="founder-contact">
+                        <a href="tel:+919220994268">+91 92209 94268</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Deputy Director Generals Grid -->
-        <div class="ddg-grid fade-in-up delay-6">
-            <div class="founder-card" data-parallax-speed="0.4">
-                <div class="founder-title">Deputy Director General</div>
-                <div class="founder-name">Yajas Chawla</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919599134103">+91 95991 34103</a>
-                </div>
-            </div>
-            <div class="founder-card" data-parallax-speed="0.35">
-                <div class="founder-title">Deputy Director General</div>
-                <div class="founder-name">Girik Garg</div>
-                <div class="divider"></div>
-                <div class="founder-contact">
-                    <a href="tel:+919220994268">+91 92209 94268</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="social-links fade-in-up delay-7">
+        <div class="social-links fade-in-up delay-6">
             <a href="https://www.instagram.com/young.leaders.summit.india/" target="_blank">Instagram</a>
             <a href="mailto:youngleaderssummitinfo@gmail.com">Email</a>
         </div>
