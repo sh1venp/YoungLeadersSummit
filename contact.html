@@ -34,12 +34,19 @@
 
         /* Director General - Single Card Centered */
         .dg-section {
-            max-width: 400px;
+            max-width: 900px;
             margin: 3rem auto;
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
             position: relative;
             z-index: 2;
+        }
+
+        .dg-section .founder-card {
+            grid-column: 1 / 3;
+            max-width: calc(50% - 1rem);
+            margin: 0 auto;
         }
 
         /* Deputy Director Generals Grid */
