@@ -27,6 +27,10 @@
             overflow-x: hidden;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Navigation */
         nav {
             background-color: var(--dark-brown);
@@ -89,7 +93,7 @@
         /* Page Header */
         .page-header {
             margin-top: 90px;
-            padding: 3rem 5%;
+            padding: 4rem 5%;
             text-align: center;
             background: linear-gradient(135deg, var(--dark-brown) 0%, #2a1a0f 100%);
             color: var(--light-beige);
@@ -102,6 +106,13 @@
             font-weight: 400;
         }
 
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .page-header h1::after {
             content: '';
             display: block;
@@ -111,112 +122,162 @@
             margin: 1rem auto;
         }
 
-        /* Committees Container */
-        #committees {
+        /* Committees Scroll Container */
+        .committees-section {
+            padding: 5rem 0;
+            background-color: var(--cream);
+        }
+
+        .scroll-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .committees-scroll {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 5%;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .committees-scroll::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .committees-scroll::-webkit-scrollbar-track {
+            background: var(--light-beige);
+            border-radius: 10px;
+        }
+
+        .committees-scroll::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 10px;
+        }
+
+        .committees-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-brown);
+        }
+
+        /* Committee Card */
+        .committee-card {
+            min-width: 400px;
+            background: white;
+            border-radius: 15px;
             padding: 0;
-        }
-
-        /* Split Screen Committee Card */
-        .committee-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* Alternate layout for odd/even items */
-        .committee-split:nth-child(even) {
-            direction: rtl;
-        }
-
-        .committee-split:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .committee-logo-section {
-            position: relative;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            scroll-snap-align: start;
+            transition: all 0.3s ease;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .committee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .committee-logo-container {
             background: linear-gradient(135deg, var(--dark-brown) 0%, #2a1a0f 100%);
+            padding: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1000px;
+            min-height: 250px;
         }
 
-        /* Animated gradient background */
-        .committee-logo-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(201,169,97,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .parallax-logo {
-            width: 70%;
-            max-width: 500px;
+        .committee-logo {
+            max-width: 200px;
+            max-height: 200px;
+            width: 100%;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
-            transition: all 0.3s ease-out;
-            position: relative;
-            z-index: 10;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         }
 
-        .committee-content-section {
-            padding: 4rem;
+        .committee-info {
+            padding: 2rem;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            background: white;
-            position: relative;
         }
 
-        .committee-content-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--accent-gold);
+        .committee-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .committee-type {
             display: inline-block;
             background-color: var(--light-beige);
             color: var(--dark-brown);
-            padding: 0.4rem 1.2rem;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: 0.5px;
-            width: fit-content;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .committee-content-section h3 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+        .committee-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             color: var(--dark-brown);
             letter-spacing: 1px;
-            line-height: 1.2;
         }
 
-        .committee-content-section p {
-            font-size: 1.1rem;
-            line-height: 1.9;
+        .committee-info p {
+            font-size: 1rem;
+            line-height: 1.7;
             color: #555;
+            flex-grow: 1;
+        }
+
+        /* Overlay Navigation Buttons */
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(59, 33, 20, 0.8);
+            color: var(--light-beige);
+            border: none;
+            padding: 2rem 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            transition: all 0.3s;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border-radius: 0;
+            opacity: 0.7;
+        }
+
+        .scroll-btn:hover {
+            background-color: rgba(201, 169, 97, 0.95);
+            color: var(--dark-brown);
+            opacity: 1;
+            padding: 2rem 1.2rem;
+        }
+
+        #scrollLeft {
+            left: 0;
+        }
+
+        #scrollRight {
+            right: 0;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            text-align: center;
+            padding: 1rem 5%;
+            color: var(--dark-brown);
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
         /* Footer */
@@ -229,39 +290,6 @@
         }
 
         /* Mobile Responsive */
-        @media (max-width: 1024px) {
-            .committee-split {
-                grid-template-columns: 1fr;
-                min-height: auto;
-            }
-
-            .committee-split:nth-child(even) {
-                direction: ltr;
-            }
-
-            .committee-logo-section {
-                min-height: 50vh;
-                order: 1;
-            }
-
-            .committee-content-section {
-                padding: 3rem 2rem;
-                min-height: 50vh;
-                order: 2;
-            }
-
-            .committee-content-section::before {
-                width: 100%;
-                height: 5px;
-                top: 0;
-                left: 0;
-            }
-
-            .parallax-logo {
-                width: 60%;
-            }
-        }
-
         @media (max-width: 768px) {
             .page-header h1 {
                 font-size: 2rem;
@@ -285,20 +313,39 @@
                 font-size: 0.85rem;
             }
 
-            .committee-content-section h3 {
-                font-size: 1.8rem;
+            .committee-card {
+                min-width: 320px;
             }
 
-            .committee-content-section p {
-                font-size: 1rem;
+            .committee-logo-container {
+                padding: 2rem;
+                min-height: 200px;
             }
 
-            .committee-content-section {
-                padding: 2rem 1.5rem;
+            .committee-logo {
+                max-width: 150px;
+                max-height: 150px;
             }
 
-            .committee-logo-section {
-                min-height: 40vh;
+            .committee-info {
+                padding: 1.5rem;
+            }
+
+            .committee-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .committee-info p {
+                font-size: 0.95rem;
+            }
+
+            .scroll-btn {
+                padding: 1.5rem 0.8rem;
+                font-size: 1.2rem;
+            }
+
+            .scroll-btn:hover {
+                padding: 1.5rem 1rem;
             }
         }
 
@@ -311,41 +358,47 @@
                 font-size: 1.5rem;
             }
 
-            .committee-content-section h3 {
-                font-size: 1.5rem;
+            .page-header p {
+                font-size: 1rem;
             }
 
-            .committee-logo-section {
-                min-height: 35vh;
+            .committee-card {
+                min-width: 280px;
             }
 
-            .parallax-logo {
-                width: 70%;
+            .committees-scroll {
+                padding: 2rem 3%;
+            }
+
+            .scroll-btn {
+                padding: 1.2rem 0.6rem;
+                font-size: 1rem;
+            }
+
+            .scroll-btn:hover {
+                padding: 1.2rem 0.8rem;
             }
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Loading animation */
-        .committee-split {
+        /* Fade-in animation */
+        .committee-card {
             opacity: 0;
-            animation: fadeIn 0.6s ease-out forwards;
+            animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        .committee-split:nth-child(1) { animation-delay: 0.1s; }
-        .committee-split:nth-child(2) { animation-delay: 0.2s; }
-        .committee-split:nth-child(3) { animation-delay: 0.3s; }
-        .committee-split:nth-child(4) { animation-delay: 0.4s; }
-        .committee-split:nth-child(5) { animation-delay: 0.5s; }
-        .committee-split:nth-child(6) { animation-delay: 0.6s; }
-        .committee-split:nth-child(7) { animation-delay: 0.7s; }
+        .committee-card:nth-child(1) { animation-delay: 0.1s; }
+        .committee-card:nth-child(2) { animation-delay: 0.2s; }
+        .committee-card:nth-child(3) { animation-delay: 0.3s; }
+        .committee-card:nth-child(4) { animation-delay: 0.4s; }
+        .committee-card:nth-child(5) { animation-delay: 0.5s; }
+        .committee-card:nth-child(6) { animation-delay: 0.6s; }
+        .committee-card:nth-child(7) { animation-delay: 0.7s; }
+        .committee-card:nth-child(8) { animation-delay: 0.8s; }
 
-        @keyframes fadeIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -374,93 +427,139 @@
     <!-- Page Header -->
     <div class="page-header">
         <h1>Our Committees</h1>
+        <p>Explore our diverse range of committees covering critical global issues</p>
     </div>
 
     <!-- Committees Section -->
-    <section id="committees">
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="loksabha">
-                <img src="loksabha.png" alt="Lok Sabha" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">Indian Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>Lok Sabha</h3>
-                <p>Agenda: Reviewing the Arms Act, 1959, and legislating new provisions to curb the proliferation of illegal and 'Katta' (country-made) firearms, with special attention to law enforcement and socio-economic remediation in the states of Bihar and Punjab.</p>
-            </div>
-        </div>
+    <section class="committees-section">
+        <div class="scroll-container">
+            <div class="committees-scroll" id="committeeScroll">
+                <!-- Lok Sabha -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="loksabha.png" alt="Lok Sabha" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">Indian Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>Lok Sabha</h3>
+                        <p>Agenda: Reviewing the Arms Act, 1959, and legislating new provisions to curb the proliferation of illegal and 'Katta' (country-made) firearms, with special attention to law enforcement and socio-economic remediation in the states of Bihar and Punjab.</p>
+                    </div>
+                </div>
 
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="disec">
-                <img src="disec.png" alt="UNGA DISEC" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">UN Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>UNGA DISEC</h3>
-                <p>Agenda: Establishing a multilateral framework to monitor and restrict the illicit and grey-market flow of small arms and light weapons (SALW) to states perpetuating systematic human rights violations and armed conflict.</p>
-            </div>
-        </div>
+                <!-- UNGA DISEC -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="disec.png" alt="UNGA DISEC" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">UN Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>UNGA DISEC</h3>
+                        <p>Agenda: Establishing a multilateral framework to monitor and restrict the illicit and grey-market flow of small arms and light weapons (SALW) to states perpetuating systematic human rights violations and armed conflict.</p>
+                    </div>
+                </div>
 
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="unhrc">
-                <img src="unhrc.png" alt="UNHRC" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">UN Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>UNHRC</h3>
-                <p>Agenda: Addressing the legal and human rights implications of applying Sharia law, with a focus on mitigating corporal and capital punishment and ensuring fair trial standards and due process for all citizens.</p>
-            </div>
-        </div>
+                <!-- UNHRC -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="unhrc.png" alt="UNHRC" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">UN Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>UNHRC</h3>
+                        <p>Agenda: Addressing the legal and human rights implications of applying Sharia law, with a focus on mitigating corporal and capital punishment and ensuring fair trial standards and due process for all citizens.</p>
+                    </div>
+                </div>
 
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="unodc">
-                <img src="unodc.png" alt="UNODC" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">UN Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>UNODC</h3>
-                <p>Agenda: Exploring measures to dismantle the operational and financial nexus between transnational organized crime, the illicit drugs trade, and arms trafficking, with emphasis on securing vulnerable maritime and land borders.</p>
-            </div>
-        </div>
+                <!-- UNODC -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="unodc.png" alt="UNODC" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">UN Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>UNODC</h3>
+                        <p>Agenda: Exploring measures to dismantle the operational and financial nexus between transnational organized crime, the illicit drugs trade, and arms trafficking, with emphasis on securing vulnerable maritime and land borders.</p>
+                    </div>
+                </div>
 
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="uncsw">
-                <img src="uncsw.png" alt="UNCSW" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">UN Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>UNCSW</h3>
-                <p>Agenda: Addressing the structural barriers to women's political participation and leadership, and formulating strategies to achieve gender parity in legislative, executive, and judicial bodies worldwide.</p>
-            </div>
-        </div>
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="mossad">
-                <img src="mossad.png" alt="MOSSAD" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">Crisis Committee</span> <span class="committee-type">Single Delegation</span>
-                <h3>MOSSAD</h3>
-                <p>Agenda: 𝑪̶𝑳̶𝑨̶𝑺̶𝑺̶𝑰̶𝑭̶𝑰̶𝑬̶𝑫̶ </p>
-            </div>
-        </div>
-            <div class="committee-split">
-            <div class="committee-logo-section" data-committee="unsc">
-                <img src="unsc.png" alt="UNSC" class="parallax-logo">
-            </div>
-            <div class="committee-content-section">
-                <span class="committee-type">UN Committee</span> <span class="committee-type">Double Delegation</span>
-                <h3>UNSC</h3>
-                <p>Agenda: Evaluating the legitimacy and stratigic implications of multinational military intervention in Haiti.</p>
-            </div>
-        </div>
+                <!-- UNCSW -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="uncsw.png" alt="UNCSW" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">UN Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>UNCSW</h3>
+                        <p>Agenda: Addressing the structural barriers to women's political participation and leadership, and formulating strategies to achieve gender parity in legislative, executive, and judicial bodies worldwide.</p>
+                    </div>
+                </div>
 
-        <div class="committee-split">
-            <div class="committee-logo-section" data-committee="ip">
-                <img src="ip.png" alt="International Press" class="parallax-logo">
+                <!-- MOSSAD -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="mossad.png" alt="MOSSAD" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">Crisis Committee</span>
+                            <span class="committee-type">Single Delegation</span>
+                        </div>
+                        <h3>MOSSAD</h3>
+                        <p>Agenda: ̶C̶L̶A̶S̶S̶I̶F̶I̶E̶D̶</p>
+                    </div>
+                </div>
+
+                <!-- UNSC -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="disec.png" alt="UNSC" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">UN Committee</span>
+                            <span class="committee-type">Double Delegation</span>
+                        </div>
+                        <h3>UNSC</h3>
+                        <p>Agenda: Evaluating the legitimacy and stratigic implications of multinational military intervention in Haiti.</p>
+                    </div>
+                </div>
+
+                <!-- International Press -->
+                <div class="committee-card">
+                    <div class="committee-logo-container">
+                        <img src="ip.png" alt="International Press" class="committee-logo">
+                    </div>
+                    <div class="committee-info">
+                        <div class="committee-badges">
+                            <span class="committee-type">Press Committee</span>
+                        </div>
+                        <h3>International Press (IP)</h3>
+                        <p>Agenda: Documenting the conference through photography, journalism, and caricature. The IP team will capture the essence of diplomatic debate and produce comprehensive coverage of all committee proceedings.</p>
+                    </div>
+                </div>
             </div>
-            <div class="committee-content-section">
-                <span class="committee-type">Press Committee</span>
-                <h3>International Press (IP)</h3>
-                <p>Agenda: Documenting the conference through photography, journalism, and caricature. The IP team will capture the essence of diplomatic debate and produce comprehensive coverage of all committee proceedings.</p>
+
+            <!-- Overlay Navigation Buttons -->
+            <button class="scroll-btn" id="scrollLeft">‹</button>
+            <button class="scroll-btn" id="scrollRight">›</button>
+
+            <div class="scroll-indicator">
+                Use the navigation buttons to explore all our committees.
             </div>
         </div>
     </section>
@@ -472,81 +571,56 @@
     </footer>
 
     <script>
-        // Enhanced parallax effect with scroll and mouse tracking
-        let ticking = false;
+        const scrollContainer = document.getElementById('committeeScroll');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
 
-        function updateParallax() {
-            const logos = document.querySelectorAll('.parallax-logo');
-            
-            logos.forEach(logo => {
-                const section = logo.closest('.committee-logo-section');
-                const rect = section.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                // Check if section is in viewport
-                if (rect.top < windowHeight && rect.bottom > 0) {
-                    // Calculate scroll progress (0 to 1) through the viewport
-                    const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                    
-                    // Enhanced parallax movement
-                    const parallaxY = (progress - 0.5) * 60;
-                    const scale = 1 + (Math.abs(progress - 0.5) * 0.1);
-                    
-                    logo.style.transform = `translateY(${parallaxY}px) scale(${scale})`;
-                }
-            });
-            
-            ticking = false;
-        }
+        // Scroll amount (one card width + gap)
+        const scrollAmount = 420;
 
-        function requestTick() {
-            if (!ticking) {
-                window.requestAnimationFrame(updateParallax);
-                ticking = true;
+        scrollLeftBtn.addEventListener('click', () => {
+            const currentScroll = scrollContainer.scrollLeft;
+            
+            if (currentScroll <= 0) {
+                // Loop to end
+                scrollContainer.scrollTo({
+                    left: scrollContainer.scrollWidth - scrollContainer.clientWidth,
+                    behavior: 'smooth'
+                });
+            } else {
+                scrollContainer.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
             }
-        }
+        });
 
-        window.addEventListener('scroll', requestTick);
-        
-        // Mouse tracking for additional depth effect (desktop only)
-        if (window.innerWidth > 1024) {
-            document.querySelectorAll('.committee-logo-section').forEach(section => {
-                section.addEventListener('mousemove', (e) => {
-                    const logo = section.querySelector('.parallax-logo');
-                    const rect = section.getBoundingClientRect();
-                    
-                    // Calculate mouse position relative to section center (-0.5 to 0.5)
-                    const x = (e.clientX - rect.left) / rect.width - 0.5;
-                    const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    
-                    // Get current scroll transform
-                    const currentTransform = logo.style.transform || '';
-                    const translateYMatch = currentTransform.match(/translateY\(([^)]+)\)/);
-                    const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
-                    
-                    const translateY = translateYMatch ? translateYMatch[1] : '0px';
-                    const scale = scaleMatch ? scaleMatch[1] : '1';
-                    
-                    // Apply subtle rotation based on mouse position
-                    logo.style.transform = `translateY(${translateY}) scale(${scale}) rotateX(${y * 10}deg) rotateY(${x * 10}deg)`;
+        scrollRightBtn.addEventListener('click', () => {
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            const currentScroll = scrollContainer.scrollLeft;
+            
+            if (currentScroll >= maxScroll - 1) {
+                // Loop to beginning
+                scrollContainer.scrollTo({
+                    left: 0,
+                    behavior: 'smooth'
                 });
-                
-                section.addEventListener('mouseleave', () => {
-                    const logo = section.querySelector('.parallax-logo');
-                    const currentTransform = logo.style.transform || '';
-                    const translateYMatch = currentTransform.match(/translateY\(([^)]+)\)/);
-                    const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
-                    
-                    const translateY = translateYMatch ? translateYMatch[1] : '0px';
-                    const scale = scaleMatch ? scaleMatch[1] : '1';
-                    
-                    logo.style.transform = `translateY(${translateY}) scale(${scale})`;
+            } else {
+                scrollContainer.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
                 });
-            });
-        }
+            }
+        });
 
-        // Initial update
-        updateParallax();
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                scrollLeftBtn.click();
+            } else if (e.key === 'ArrowRight') {
+                scrollRightBtn.click();
+            }
+        });
     </script>
 </body>
 </html>
